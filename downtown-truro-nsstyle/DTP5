@@ -1,0 +1,6 @@
+<?php get_header(); ?>
+<main class="max-w-7xl mx-auto p-12 text-center">
+  <h1 class="text-3xl font-bold">Welcome to Downtown Truro</h1>
+  <p>Set a static homepage to use the custom layout.</p>
+</main>
+<?php get_footer(); ?>

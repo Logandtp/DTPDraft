@@ -1,0 +1,14 @@
+<footer class="site mt-20" style="background:#0081ca;color:#fff">
+  <div class="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-6">
+    <div><strong>Downtown Truro</strong><br>Vibrant shops, events & community.</div>
+    <div><strong>Explore</strong><br>
+      <a href="<?php echo esc_url(get_post_type_archive_link('business')); ?>" style="color:#fff">Businesses</a> ·
+      <a href="<?php echo esc_url(get_post_type_archive_link('event')); ?>" style="color:#fff">Events</a> ·
+      <a href="/programs" style="color:#fff">Programs</a></div>
+    <div><strong>Contact</strong><br><a href="mailto:info@downtowntruro.ca" style="color:#fff">info@downtowntruro.ca</a></div>
+  </div>
+  <div class="text-center py-4" style="background:rgba(0,0,0,.2)">© <?php echo date('Y'); ?> Downtown Truro Partnership</div>
+</footer>
+<?php wp_footer(); ?>
+</body>
+</html>

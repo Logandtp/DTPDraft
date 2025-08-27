@@ -1,0 +1,51 @@
+<?php get_header(); ?>
+<main>
+  <!-- HERO -->
+  <section class="relative" style="height:78vh;min-height:560px">
+    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/hero.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Downtown Truro">
+    <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.45));"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+      <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">Discover Downtown Truro</h1>
+      <p class="mt-3 text-lg md:text-xl opacity-95">Eat • Shop • Experience • Community</p>
+    </div>
+    <!-- CTA Tabs -->
+    <div class="relative z-10 flex justify-center">
+      <div class="bg-white shadow-xl rounded-xl -mb-10 md:-mb-12 px-5 py-4 flex gap-3 items-center">
+        <a class="tab" style="padding:.5rem 1rem;border-radius:9999px;border:2px solid #6bc046;color:#6bc046;font-weight:700" href="<?php echo esc_url(get_post_type_archive_link('business')); ?>">Businesses</a>
+        <a class="tab" style="padding:.5rem 1rem;border-radius:9999px;border:2px solid #6d2077;color:#6d2077;font-weight:700" href="<?php echo esc_url(get_post_type_archive_link('event')); ?>">Events</a>
+        <a class="tab" style="padding:.5rem 1rem;border-radius:9999px;border:2px solid #6bc046;color:#6bc046;font-weight:700" href="/programs">Programs</a>
+        <a class="tab" style="padding:.5rem 1rem;border-radius:9999px;border:2px solid #6d2077;color:#6d2077;font-weight:700" href="/things-to-do">Things to Do</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO -->
+  <section class="max-w-7xl mx-auto px-4 mt-20">
+    <div class="rounded-xl p-8 md:p-10" style="background:#0081ca;color:#fff">
+      <h2 class="text-2xl md:text-3xl font-bold mb-2">Exclusive Downtown Deals & Events</h2>
+      <p>Check out promotions, Downtown Dollars, and what's on this week.</p>
+    </div>
+  </section>
+
+  <!-- GRID -->
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <h3 class="text-2xl font-bold mb-6">Spotlight in Downtown Truro</h3>
+    <div class="grid md:grid-cols-3 gap-6">
+      <?php
+        $posts = new WP_Query(array('post_type'=>array('business','event'),'posts_per_page'=>6));
+        if($posts->have_posts()) : while($posts->have_posts()): $posts->the_post(); ?>
+          <article class="bg-white" style="border-radius:1rem;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08)">
+            <?php if(has_post_thumbnail()){ the_post_thumbnail('medium', array('class'=>'w-full h-48 object-cover')); } ?>
+            <div class="p-4">
+              <h4 class="text-lg font-bold mb-1"><?php the_title(); ?></h4>
+              <p style="color:#475569"><?php echo wp_trim_words(get_the_excerpt() ?: get_the_content(), 16); ?></p>
+              <a href="<?php the_permalink(); ?>" class="inline-block mt-3 font-semibold" style="color:#0081ca">Learn more →</a>
+            </div>
+          </article>
+      <?php endwhile; wp_reset_postdata(); else: ?>
+        <p>More highlights coming soon.</p>
+      <?php endif; ?>
+    </div>
+  </section>
+</main>
+<?php get_footer(); ?>

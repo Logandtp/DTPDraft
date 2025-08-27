@@ -1,1 +1,49 @@
-downtown-truro-nsstyle/style.css
+<?php
+function dtp_enqueue_assets() {
+  wp_enqueue_style('dtp-style', get_stylesheet_uri());
+  wp_enqueue_style('dtp-tailwind', 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+  wp_enqueue_style('dtp-theme', get_template_directory_uri() . '/assets/css/theme.css', array('dtp-tailwind'));
+  wp_enqueue_script('dtp-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), null, true);
+}
+add_action('wp_enqueue_scripts', 'dtp_enqueue_assets');
+
+function dtp_register_menus(){ register_nav_menus(array('primary'=>'Primary Menu')); }
+add_action('after_setup_theme','dtp_register_menus');
+
+add_theme_support('post-thumbnails');
+
+function dtp_register_cpts(){
+  register_post_type('business', array(
+    'labels'=>array('name'=>'Businesses','singular_name'=>'Business'),
+    'public'=>true,'has_archive'=>true,'menu_icon'=>'dashicons-store',
+    'supports'=>array('title','editor','thumbnail','author')
+  ));
+  register_post_type('event', array(
+    'labels'=>array('name'=>'Events','singular_name'=>'Event'),
+    'public'=>true,'has_archive'=>true,'menu_icon'=>'dashicons-calendar-alt',
+    'supports'=>array('title','editor','thumbnail','custom-fields')
+  ));
+}
+add_action('init','dtp_register_cpts');
+
+function dtp_create_demo_content(){
+  $home = get_page_by_title('Home');
+  if(!$home){
+    $home_id = wp_insert_post(array('post_title'=>'Home','post_status'=>'publish','post_type'=>'page'));
+    update_option('page_on_front',$home_id);
+    update_option('show_on_front','page');
+  }
+  if(!get_page_by_title('Businesses')){ wp_insert_post(array('post_title'=>'Businesses','post_status'=>'publish','post_type'=>'page')); }
+  if(!get_page_by_title('Events')){ wp_insert_post(array('post_title'=>'Events','post_status'=>'publish','post_type'=>'page')); }
+  if(!get_page_by_title('Downtown Dollars')){
+    wp_insert_post(array('post_title'=>'Downtown Dollars','post_content'=>'Shop local with Downtown Dollars redeemable at participating businesses.','post_status'=>'publish','post_type'=>'business'));
+  }
+  if(!get_page_by_title('Facade Improvement Program')){
+    wp_insert_post(array('post_title'=>'Facade Improvement Program','post_content'=>'Grants to enhance storefront facades and signage.','post_status'=>'publish','post_type'=>'business'));
+  }
+  if(!get_page_by_title('Festival of Lights')){
+    wp_insert_post(array('post_title'=>'Festival of Lights','post_content'=>'A marquee seasonal celebration downtown.','post_status'=>'publish','post_type'=>'event'));
+  }
+}
+add_action('after_switch_theme','dtp_create_demo_content');
+?>

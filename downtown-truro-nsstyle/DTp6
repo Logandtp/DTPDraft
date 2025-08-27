@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Glacier Indifference';
+  src: url('../fonts/glacier-indifference.woff2') format('woff2');
+  font-weight: normal; font-style: normal;
+}
+
+:root {
+  --primary:#0081ca; --green:#6bc046; --purple:#6d2077;
+}
+
+body, h1, h2, h3, h4, h5, h6, button {
+  font-family:'Glacier Indifference', system-ui, sans-serif;
+  color:#0f172a; background:#fff;
+}
+
+a { text-decoration:none }
+
+.logo { max-height:56px }
+
+.card { border-radius:1rem; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.08) }
+.promo{ background:var(--primary); color:#fff; border-radius:1rem }
